@@ -27,14 +27,12 @@ public class Main {
 			else {
 				return false;
 			}
-				
 		}
 		
 		return true;
 	}
 	
 	static void anagramCheckDebug(String a, String b) {
-	
 		if (anagramCheck(a, b)) {
 			System.out.println(a + " is an anagram of " + b); 
 		}
@@ -44,7 +42,6 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-
 		anagramCheckDebug("cat", "atc");
 		anagramCheckDebug("cat", "atd");
 		anagramCheckDebug("The meaning of life", "The fine game of nil");

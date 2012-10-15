@@ -4,16 +4,20 @@ public class Main {
 
 	static int minDistance(int arr[]) {
 		
+		//Set the minimum distance to an integer's maximum value
 		int minDist = Integer.MAX_VALUE;
 		int index = -1;
 		
+		//Iterate the array's values
 		for (int i = 0; i < arr.length - 1; i++) {
 			//Calculate the distance of the ith array value and it's right neighbour
 			int newDist = Math.abs(arr[i]-arr[i+1]);
 			
-			if (newDist < minDist)
-			{
+			//If we've found a new minimum distance
+			if (newDist < minDist) {
+				//Store the index
 				index = i;
+				//Change the current minimum index
 				minDist = newDist;
 			}
 		}
