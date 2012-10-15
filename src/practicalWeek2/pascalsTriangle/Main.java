@@ -1,11 +1,9 @@
 package practicalWeek2.pascalsTriangle;
 
 public class Main {
-	static final String halfTab = "  ";
-	static final String singleTab = "    ";
 	
 	//Returns a 2d array with pascals triangle
-	static int[][] createPascalsTriangle(int depth) {
+	private static int[][] createPascalsTriangle(int depth) {
 		
 		//Create a 2d array with the correct depth
 		int[][] triangle = new int[depth][];
@@ -33,7 +31,8 @@ public class Main {
 		return triangle;
 	}
 	
-	static void pascalsTriangle(int rows) {
+	//Creates a pascals triangle given a number of rows
+	private static void pascalsTriangle(int rows) {
 		
 		//Create pascals triangle
 		int[][] triangle = createPascalsTriangle(rows);
@@ -48,14 +47,14 @@ public class Main {
 		for (int i = 0; i < rows; i++) {
 			//Print the left tabs
 			for (int t = 0; t < leftTabs; t++)
-				System.out.print(singleTab);
+				System.out.print("    ");
 			
 			//Decrease a lefttab ready for the next row
 			leftTabs--;
 			
 			//Print out all the data on the row (avoiding the left most and rightmost cells as they will be zero)
 			for (int n = 1; n < triangle[i].length - 1; n++) {
-				System.out.print(triangle[i][n] + singleTab + halfTab);
+				System.out.print(triangle[i][n] + "      ");
 			}
 			
 			//New line for new row
