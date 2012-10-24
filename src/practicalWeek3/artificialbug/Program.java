@@ -148,9 +148,8 @@ public class Program {
 		
 		return aBugList.toArray(new ABug[aBugList.size()]);
 	}
-
-	public static void main(String[] args) {
-
+	
+	public static void task1234() {
 		ABug aBug;
 		
 		//Task 1
@@ -176,7 +175,26 @@ public class Program {
 		for (ABug bug : bugArray2) {
 			System.out.println(bug.toText());
 		}
+	}
+	
+	public static void mapTask() {
+		Map map = new Map(50,30);
+		ABug bug = new ABug("Mr Sparkle", "Donkey", '@', 50, new Point2D(25,15));
+		map.print(bug);
+		
+		//Move 15 steps
+		for (int i = 0; i < 15; i++)
+			bug.move();
+		
+		System.out.println("\n");
+		
+		map.print(bug);
+	}
 
+	public static void main(String[] args) {
+
+		//task1234();
+		mapTask();
 	}
 
 }
