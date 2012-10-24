@@ -38,7 +38,7 @@ public class Main {
 		
 		//Print initials
 		for (String name : names) {
-			System.out.println(name + " => " + practicalWeek1.task2.Main.getInitials(name));
+			System.out.println(name + " =initials=> " + practicalWeek1.task2.Main.getInitials(name));
 		}
 		
 	}

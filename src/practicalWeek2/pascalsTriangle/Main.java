@@ -63,7 +63,7 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		pascalsTriangle(30);
+		pascalsTriangle(50);
 	}
 
 }

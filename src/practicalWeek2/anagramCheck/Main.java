@@ -44,7 +44,7 @@ public class Main {
 	public static void main(String[] args) {
 		anagramCheckDebug("cat", "atc");
 		anagramCheckDebug("cat", "atd");
-		anagramCheckDebug("The meaning of life", "The fine game of nil");
+		anagramCheckDebug("meat", "tea");
 	}
 
 }
