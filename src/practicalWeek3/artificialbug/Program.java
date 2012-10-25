@@ -71,12 +71,11 @@ public class Program {
 		}
 		
 		ABug aBug = new ABug();
-		aBug.species = species;
-		aBug.name = name;
-		aBug.energy = energy;
-		aBug.symbol = symbol;
-		aBug.position.x = xposition;
-		aBug.position.y = yposition;
+		aBug.setSpecies(species);
+		aBug.setName(name);
+		aBug.setEnergy(energy);
+		aBug.setSymbol(symbol);
+		aBug.setPosition(new Point2D(xposition, yposition));
 		return aBug;
 	}
 	
@@ -193,8 +192,8 @@ public class Program {
 
 	public static void main(String[] args) {
 
-		//task1234();
-		mapTask();
+		task1234();
+		//mapTask();
 	}
 
 }

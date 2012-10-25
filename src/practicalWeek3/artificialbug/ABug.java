@@ -4,12 +4,12 @@ import java.util.Random;
 
 public class ABug {
 
-	public String species;
-	public String name;
-	public char symbol;
-	public int energy;
+	private String species;
+	private String name;
+	private char symbol;
+	private int energy;
 	private int uniqueId;
-	public Point2D position;
+	private Point2D position;
 	private Random random = new Random();
 	
 	public ABug() {
@@ -28,6 +28,46 @@ public class ABug {
 		energy = penergy;
 		position = pposition;
 		uniqueId = UniqueId.Get();
+	}
+	
+	public void setSpecies(String s) {
+		species = s;
+	}
+	
+	public void setName(String n) {
+		name = n;
+	}
+	
+	public void setSymbol(char c) {
+		symbol = c;
+	}
+	
+	public void setEnergy(int e) {
+		energy = e;
+	}
+	
+	public void setPosition(Point2D p) {
+		position = p;
+	}
+	
+	public String getSpecies() {
+		return species;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public char getSymbol() {
+		return symbol;
+	}
+	
+	public int getEnergy() {
+		return energy;
+	}
+	
+	public Point2D getPosition() {
+		return position;
 	}
 	
 	public String toString() {
