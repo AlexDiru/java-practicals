@@ -15,18 +15,37 @@ public class AWorld {
 		if (printBoundaries)
 			map.printBorder();
 		
+		ArrayList<String> mapList = new ArrayList<String>();
+		
 		//Iterate rows
 		for (String row : map.getCells()) {
-			if (printBoundaries)
-				System.out.print("|");
 			
-			System.out.print(row);
+			String mapRow = "";
 			
 			if (printBoundaries)
-				System.out.print("|");
+				mapRow += "|";
 			
-			System.out.print("\n");
+			mapRow += row;
+			
+			if (printBoundaries)
+				mapRow += "|";
+			
+			mapList.add(mapRow);
 		}
+		
+		//Insert bugs in map
+		for (ABug bug : bugs) {
+			//Get the row
+			char[] row = mapList.get(bug.getPosition().y).toCharArray();
+			//Insert the bug
+			row[bug.getPosition().x + 1] = bug.getSymbol();
+			
+			mapList.set(bug.getPosition().y, new String(row));
+		}
+		
+		//Print mapList
+		for (String line : mapList)
+			System.out.println(line);
 		
 		if (printBoundaries)
 			map.printBorder();
@@ -50,8 +69,9 @@ public class AWorld {
 	
 	private boolean isBugAtPosition(Point position) {
 		for (ABug bug : bugs)
-			if (bug.getPosition().equals(position))
-					return true;
+			if (bug.getPosition() != null)
+				if (bug.getPosition().equals(position))
+						return true;
 		return false;
 	}
 	
@@ -65,6 +85,36 @@ public class AWorld {
 		
 		//Get a position for the bug
 		b.setPosition(getUnoccupiedPosition());
+	}
+	
+	public void main(int numberOfCycles) {
+		for (int n = 0; n < numberOfCycles; n++) {
+			//For each bug
+			//Perform sensing-moving-eating
+			for (ABug bug : bugs) {
+				//Check if nearby food
+				ABug.Direction direction = bug.getDirectionOfFood();
+				
+				if (direction.equals(ABug.Direction.None)) {
+					//No food, so move in a random direction (if possible)
+					bug.move(bug.getRandomDirectionToMove());
+				} else {
+					//Else food, so prepare to increase the energy by the amount of food
+					bug.setEnergy(bug.getEnergy() + bug.move(direction));
+				}	
+			}
+			
+			printMap(true);
+			printStats();
+		}
+	}
+	
+	/**
+	 * Prints the stats of each bug in the map
+	 */
+	public void printStats() {
+		for (ABug bug : bugs)
+			bug.printStats();
 	}
 	
 	public Map getMap() {

@@ -13,11 +13,21 @@ public class ABug {
 	private String name;
 	private char symbol;
 	
+	/**
+	 * Constructor for the bug
+	 * @param n Name
+	 * @param s Symbol
+	 * @param m Max Sensing Distance
+	 */
 	public ABug(String n, char s, int m) {
 		energy = 10;
 		maxSensingDistance = m;
 		name = n;
 		symbol = s;
+	}
+	
+	public void printStats() {
+		System.out.println(symbol + " " + name + ": " + " Energy = " + energy + " (" + position.x + "," + position.y + ")");
 	}
 	
 	/** 
@@ -37,14 +47,26 @@ public class ABug {
 	public boolean smellFood(Direction direction) {
 		boolean isFood;
 		for (int offset = 1; offset <= maxSensingDistance; offset++) {
-			if (direction.equals(Direction.North))
+			if (direction.equals(Direction.North)) {
 				isFood = world.getMap().isFood(position.x, position.y + offset);
-			else if (direction.equals(Direction.South))
+				if (world.getMap().isObstacle(position.x, position.y + offset))
+					return false;
+			}
+			else if (direction.equals(Direction.South)) {
 				isFood = world.getMap().isFood(position.x, position.y - offset);
-			else if (direction.equals(Direction.East))
+				if (world.getMap().isObstacle(position.x, position.y - offset))
+					return false;
+			}
+			else if (direction.equals(Direction.East)) {
 				isFood = world.getMap().isFood(position.x - offset, position.y);
-			else
+				if (world.getMap().isObstacle(position.x - offset, position.y))
+					return false;
+			}
+			else {
 				isFood = world.getMap().isFood(position.x + offset, position.y);
+				if (world.getMap().isObstacle(position.x + offset, position.y))
+					return false;
+			}
 			
 			if (isFood)
 				return true;
@@ -91,14 +113,25 @@ public class ABug {
 		else
 			return 0;
 		
-		char mapCellValue = world.getMap().getCells()[newPosition.y].toCharArray()[newPosition.x];
+		char mapCellValue;
+		
+		try {
+			mapCellValue = world.getMap().getCells()[newPosition.y].toCharArray()[newPosition.x];
+		} catch (Exception ex) {
+			return 0;
+		}
 		
 		if (mapCellValue == 'X')
 			return -1;
-		else if ((int)mapCellValue >= (int)'0' && (int)mapCellValue <= (int)'9')
+		else if ((int)mapCellValue >= (int)'0' && (int)mapCellValue <= (int)'9') {
+			position = newPosition;
+			world.getMap().removeFood(newPosition.x, newPosition.y);
 			return ((int)mapCellValue - (int)'0');
-		else
+		}
+		else {
+			position = newPosition;
 			return 0;
+		}
 	}
 	
 	/**

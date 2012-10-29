@@ -66,11 +66,46 @@ public class Map {
 	 * The y position of the cell to check
 	 * @return
 	 * Whether or not the food exists on the cell
+	 * @author Alex
 	 */
 	public boolean isFood(int x, int y) {
 		//Check if the cell is between '0' and '9'
-		int cellValue = (cells[y].toCharArray()[x] - '0');
-		return cellValue >= 0 && cellValue <= 9;
+		try {
+			int cellValue = (cells[y].toCharArray()[x] - '0');
+			return cellValue >= 0 && cellValue <= 9;
+		} catch (Exception ex) {
+			return false;
+		}
+	}
+	
+	/**
+	 * Removes the food at a cell
+	 * @param x X position of the cell
+	 * @param y Y position of the cell
+	 */
+	public void removeFood(int x, int y) {
+		char[] row = cells[y].toCharArray();
+		row[x] = ' ';
+		cells[y] = new String(row);
+	}
+	
+	/**
+	 * Checks if a cell has food on it
+	 * @param x
+	 * The x position of the cell to check
+	 * @param y
+	 * The y position of the cell to check
+	 * @return
+	 * Whether or not the food exists on the cell
+	 * @author Alex
+	 */
+	public boolean isObstacle(int x, int y) {
+		//Check if the cell is between '0' and '9'
+		try {
+			return cells[y].toCharArray()[x] == 'X';
+		} catch (Exception ex) {
+			return false;
+		}
 	}
 	
 	/**
