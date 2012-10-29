@@ -1,5 +1,6 @@
 package practicalWeek4.artificialLifeSimulator;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -45,7 +46,7 @@ public class Map {
 				//Food?
 				else if (r < obstacleFrequency + foodFrequency)
 					//Get a random single digit
-					toAdd = (char)('0' + random.nextInt(10));
+					toAdd = (char)('0' + (random.nextInt(9) + 1));
 				//Blank
 				else
 					toAdd = ' ';
@@ -85,5 +86,13 @@ public class Map {
 	
 	public String[] getCells() {
 		return cells;
+	}
+	
+	public int getXSize() {
+		return xSize;
+	}
+	
+	public int getYSize() {
+		return ySize;
 	}
 }

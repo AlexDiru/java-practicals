@@ -10,19 +10,22 @@ public class ABug {
 	private int maxSensingDistance;
 	private AWorld world;
 	private Random random = new Random();
+	private String name;
+	private char symbol;
 	
+	public ABug(String n, char s, int m) {
+		energy = 10;
+		maxSensingDistance = m;
+		name = n;
+		symbol = s;
+	}
 	
-	/** The direction the ABug moves in
-	 * 
+	/** 
+	 * The direction the ABug moves in
 	 * @author Alex
-	 *
 	 */
 	public enum Direction {
-		North,
-		South,
-		East,
-		West,
-		None,
+		North, South, East, West, None,
 	}
 	
 	/**
@@ -70,8 +73,32 @@ public class ABug {
 		return Direction.None;
 	}
 	
+	/**
+	 * Moves in a direction
+	 * @param direction The direction to move in
+	 * @return -1 if obstacle, 0 if nothing, 1 - 9 if food
+	 */
 	public int move(Direction direction) {
+		Point newPosition;
+		if (direction.equals(Direction.North))
+			newPosition = new Point(position.x, position.y + 1);
+		else if (direction.equals(Direction.South))
+			newPosition = new Point(position.x, position.y - 1);
+		else if (direction.equals(Direction.East))
+			newPosition = new Point(position.x - 1, position.y);
+		else if (direction.equals(Direction.West))
+			newPosition = new Point(position.x + 1, position.y);
+		else
+			return 0;
 		
+		char mapCellValue = world.getMap().getCells()[newPosition.y].toCharArray()[newPosition.x];
+		
+		if (mapCellValue == 'X')
+			return -1;
+		else if ((int)mapCellValue >= (int)'0' && (int)mapCellValue <= (int)'9')
+			return ((int)mapCellValue - (int)'0');
+		else
+			return 0;
 	}
 	
 	/**
@@ -122,4 +149,21 @@ public class ABug {
 	public Point getPosition() {
 		return position;
 	}
+	
+	public void setName(String n) {
+		name = n;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	public void setSymbol(char c) {
+		symbol = c;
+	}
+
+	public char getSymbol() {
+		return symbol;
+	}
+
 }
