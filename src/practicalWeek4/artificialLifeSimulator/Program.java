@@ -10,13 +10,13 @@ public class Program {
 		//Create bugs
 		ABug bug = new ABug("Alex", 'A', 10);
 		ABug bug2 = new ABug("Tom", 'T', 10);
+		ABug bug3 = new ABug("Snowy", 'S', 10);
 		
-		AWorld world = new AWorld();
+		AWorld world = new AWorld(100,60);
 		world.addBug(bug);
 		world.addBug(bug2);
+		world.addBug(bug3);
 		
-		world.main(300);
-
+		world.main(3000);
 	}
-
 }

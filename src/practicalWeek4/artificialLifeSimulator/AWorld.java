@@ -6,9 +6,13 @@ import java.util.Random;
 
 public class AWorld {
 	
-	private Map map = new Map(25,15);
+	private Map map;
 	private ArrayList<ABug> bugs = new ArrayList<ABug>();
 	private Random random = new Random();
+	
+	public AWorld(int xSize, int ySize) {
+		map = new Map(xSize, ySize);
+	}
 	
 	public void printMap(boolean printBoundaries) {
 		
