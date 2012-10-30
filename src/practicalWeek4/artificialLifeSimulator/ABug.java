@@ -26,6 +26,16 @@ public class ABug {
 		symbol = s;
 	}
 	
+	/**
+	 * Main function to test the class
+	 */
+	public void main() {
+		printStats();
+	}
+	
+	/**
+	 * Prints all the stats of the bug
+	 */
 	public void printStats() {
 		System.out.println(symbol + " " + name + ": " + " Energy = " + energy + " (" + position.x + "," + position.y + ")");
 	}
@@ -47,23 +57,35 @@ public class ABug {
 	public boolean smellFood(Direction direction) {
 		boolean isFood;
 		for (int offset = 1; offset <= maxSensingDistance; offset++) {
+			//Check North
 			if (direction.equals(Direction.North)) {
+				//Check food
 				isFood = world.getMap().isFood(position.x, position.y + offset);
+				//Check obstacle - bug cannot smell through an obstacle
 				if (world.getMap().isObstacle(position.x, position.y + offset))
 					return false;
 			}
+			//Check South
 			else if (direction.equals(Direction.South)) {
+				//Check food
 				isFood = world.getMap().isFood(position.x, position.y - offset);
+				//Check obstacle - bug cannot smell through an obstacle
 				if (world.getMap().isObstacle(position.x, position.y - offset))
 					return false;
 			}
+			//Check East
 			else if (direction.equals(Direction.East)) {
+				//Check food
 				isFood = world.getMap().isFood(position.x - offset, position.y);
+				//Check obstacle - bug cannot smell through an obstacle
 				if (world.getMap().isObstacle(position.x - offset, position.y))
 					return false;
 			}
+			//Check West
 			else {
+				//Check food
 				isFood = world.getMap().isFood(position.x + offset, position.y);
+				//Check obstacle - bug cannot smell through an obstacle
 				if (world.getMap().isObstacle(position.x + offset, position.y))
 					return false;
 			}
@@ -102,6 +124,8 @@ public class ABug {
 	 */
 	public int move(Direction direction) {
 		Point newPosition;
+		
+		//Adjust the position according to the direction
 		if (direction.equals(Direction.North))
 			newPosition = new Point(position.x, position.y + 1);
 		else if (direction.equals(Direction.South))
@@ -115,12 +139,14 @@ public class ABug {
 		
 		char mapCellValue;
 		
+		//Get the value of the map, if out of bounds return 0
 		try {
 			mapCellValue = world.getMap().getCells()[newPosition.y].toCharArray()[newPosition.x];
 		} catch (Exception ex) {
 			return 0;
 		}
 		
+			
 		if (mapCellValue == 'X')
 			return -1;
 		else if ((int)mapCellValue >= (int)'0' && (int)mapCellValue <= (int)'9') {

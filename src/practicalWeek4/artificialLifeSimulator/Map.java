@@ -1,6 +1,5 @@
 package practicalWeek4.artificialLifeSimulator;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -19,10 +18,8 @@ public class Map {
 	
 	/**
 	 * Randomly generates the map
-	 * @param x
-	 * The XSize of the map
-	 * @param y
-	 * The YSize of the map
+	 * @param x The XSize of the map
+	 * @param y The YSize of the map
 	 * @author Alex
 	 */
 	public Map(int x, int y) {
@@ -60,12 +57,9 @@ public class Map {
 	
 	/**
 	 * Checks if a cell has food on it
-	 * @param x
-	 * The x position of the cell to check
-	 * @param y
-	 * The y position of the cell to check
-	 * @return
-	 * Whether or not the food exists on the cell
+	 * @param x The x position of the cell to check
+	 * @param y The y position of the cell to check
+	 * @return Whether or not the food exists on the cell
 	 * @author Alex
 	 */
 	public boolean isFood(int x, int y) {
@@ -91,12 +85,9 @@ public class Map {
 	
 	/**
 	 * Checks if a cell has food on it
-	 * @param x
-	 * The x position of the cell to check
-	 * @param y
-	 * The y position of the cell to check
-	 * @return
-	 * Whether or not the food exists on the cell
+	 * @param x The x position of the cell to check
+	 * @param y The y position of the cell to check
+	 * @return Whether or not the food exists on the cell
 	 * @author Alex
 	 */
 	public boolean isObstacle(int x, int y) {

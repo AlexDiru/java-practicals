@@ -14,11 +14,17 @@ public class AWorld {
 		map = new Map(xSize, ySize);
 	}
 	
+	/**
+	 * Prints the map on screen with all the bugs inside
+	 * @param printBoundaries Whether to indicate the boundary of the map by pipes and dashs
+	 * @author Alex
+	 */
 	public void printMap(boolean printBoundaries) {
 		
 		if (printBoundaries)
 			map.printBorder();
 		
+		//Conver the map to an array of strings to insert the bugs in
 		ArrayList<String> mapList = new ArrayList<String>();
 		
 		//Iterate rows
@@ -41,9 +47,9 @@ public class AWorld {
 		for (ABug bug : bugs) {
 			//Get the row
 			char[] row = mapList.get(bug.getPosition().y).toCharArray();
+			
 			//Insert the bug
 			row[bug.getPosition().x + 1] = bug.getSymbol();
-			
 			mapList.set(bug.getPosition().y, new String(row));
 		}
 		
@@ -58,6 +64,7 @@ public class AWorld {
 	/**
 	 * Gets a random space on the map that is open space 
 	 * @return Random empty coordinates
+	 * @author Alex
 	 */
 	public Point getUnoccupiedPosition() {
 		Point position = new Point();
@@ -71,6 +78,12 @@ public class AWorld {
 		return position;
 	}
 	
+	/**
+	 * Checks if there is a bug at a given position
+	 * @param position The position to check
+	 * @return Whether or not a bug exists
+	 * @author Alex
+	 */
 	private boolean isBugAtPosition(Point position) {
 		for (ABug bug : bugs)
 			if (bug.getPosition() != null)
@@ -91,6 +104,10 @@ public class AWorld {
 		b.setPosition(getUnoccupiedPosition());
 	}
 	
+	/**
+	 * Runs the simulation of the artificial world
+	 * @param numberOfCycles The number of cycles to run
+	 */
 	public void main(int numberOfCycles) {
 		for (int n = 0; n < numberOfCycles; n++) {
 			//For each bug
