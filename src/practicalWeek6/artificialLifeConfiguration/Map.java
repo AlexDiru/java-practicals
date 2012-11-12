@@ -16,13 +16,22 @@ public class Map {
 	//How often food appears on the map
 	private int foodFrequency = 4;
 	
+	public int getObstacleFrequency() {
+		return obstacleFrequency;
+	}
+	
+	public int getFoodFrequency() {
+		return foodFrequency;
+	}
+	
 	/**
 	 * Randomly generates the map
 	 * @param x The XSize of the map
 	 * @param y The YSize of the map
 	 * @author Alex
 	 */
-	public Map(int x, int y) {
+	
+	public void generate(int x, int y) {
 		xSize = x;
 		ySize = y;
 		
@@ -120,5 +129,10 @@ public class Map {
 	
 	public int getYSize() {
 		return ySize;
+	}
+	
+	public void setParameters(int obstacleFrequency, int foodFrequency) {
+		this.obstacleFrequency = obstacleFrequency;
+		this.foodFrequency = foodFrequency;
 	}
 }

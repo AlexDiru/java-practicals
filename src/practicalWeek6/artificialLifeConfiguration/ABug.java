@@ -13,6 +13,14 @@ public class ABug implements ALifeForm {
 	private String name;
 	private char symbol;
 	
+	//Generates a random bug
+	public ABug() {
+		energy = 10;
+		maxSensingDistance = 2;
+		name = StringHelper.generateRandomName();
+		symbol = (char) (random.nextInt(100)+10);
+	}
+	
 	/**
 	 * Constructor for the bug
 	 * @param n Name

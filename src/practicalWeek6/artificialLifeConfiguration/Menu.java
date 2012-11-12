@@ -1,10 +1,19 @@
 package practicalWeek6.artificialLifeConfiguration;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Menu {
 	
 	private static boolean exitApplication = false;
+	private AWorld world;
+	private BufferedReader br;
+	
+	public Menu(AWorld world) {
+		this.world = world;
+		br = new BufferedReader(new InputStreamReader(System.in));
+	}
 	
 	private static void exit() {
 		exitApplication = true;
@@ -55,9 +64,29 @@ public class Menu {
 			System.out.println("\t(q) Back to main menu");
 			
 			int input = readInput();
-			
+
+			clearInput();
 			if (input == (int)'q')
 				break;
+			else if (input == (int)'1') {
+				world.configuration = new Configuration("");
+			}
+			else if (input == (int)'2') {
+				while (true) {
+					System.out.println("Enter directory (q to quit):");
+					String dir = null;
+					try {
+						dir = br.readLine();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					if (dir == null || dir.equals("q") || world.configuration.load(dir))
+						break;
+				}
+			}
+			else if (input == (int)'3') {
+				world.configuration.save(world.getBugNumber(), world.getMap().getObstacleFrequency(), world.getMap().getFoodFrequency(), world.getMap().getXSize(), world.getMap().getYSize());
+			}
 		}
 		
 		clearInput();
