@@ -1,6 +1,9 @@
 package practicalWeek6.artificialLifeConfiguration;
 
 import java.awt.Point;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Random;
 
 public class ABug implements ALifeForm {
@@ -12,6 +15,7 @@ public class ABug implements ALifeForm {
 	private Random random = new Random();
 	private String name;
 	private char symbol;
+	private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 	
 	//Generates a random bug
 	public ABug() {
@@ -19,6 +23,39 @@ public class ABug implements ALifeForm {
 		maxSensingDistance = 2;
 		name = StringHelper.generateRandomName();
 		symbol = (char) (random.nextInt(100)+10);
+	}
+	
+	public void edit() {
+		System.out.println("Name: ");
+		try {
+			name = bufferedReader.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Energy: ");
+		energy = InputHelper.readInteger(bufferedReader);
+		
+		System.out.println("Symbol: ");
+		try {
+			try {
+				symbol = bufferedReader.readLine().charAt(0);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (IndexOutOfBoundsException ex) {
+		}
+		
+		position = new Point();
+		
+		System.out.println("X Position: ");
+		position.x = InputHelper.readInteger(bufferedReader);
+
+		System.out.println("Y Position: ");
+		position.y = InputHelper.readInteger(bufferedReader);
+		
+		System.out.println("Sensing Distance: ");
+		maxSensingDistance = InputHelper.readInteger(bufferedReader);
 	}
 	
 	/**

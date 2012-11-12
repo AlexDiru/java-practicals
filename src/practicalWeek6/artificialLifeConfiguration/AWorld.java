@@ -11,7 +11,7 @@ public class AWorld {
 	private ArrayList<ABug> bugs = new ArrayList<ABug>();
 	private Random random = new Random();
 	private Menu menu = new Menu(this);
-
+	private boolean displayFlag = true;
 	public Configuration configuration = new Configuration("config.txt");
 
 	public AWorld(int xSize, int ySize) {
@@ -98,6 +98,15 @@ public class AWorld {
 
 		return position;
 	}
+	
+	public void reset() {
+		//All bugs energy 10
+		for (int i = 0; i < bugs.size(); i++)
+			bugs.get(i).setEnergy(10);
+		
+		//Regenerate map
+		map.generate(map.getXSize(), map.getYSize());
+	}
 
 	/**
 	 * Checks if there is a bug at a given position
@@ -153,8 +162,10 @@ public class AWorld {
 				}
 			}
 
-			printMap(true);
-			printStats();
+			if (displayFlag) {
+				printMap(true);
+				printStats();
+			}
 
 			// Load menu if anything is pressed
 			try {
@@ -168,9 +179,21 @@ public class AWorld {
 				e.printStackTrace();
 			}
 
-			if (menu.getExitStatus())
-				return;
+			if (Menu.getExitStatus())
+				break;
 		}
+	}
+	
+	public void editBugFromName(String name) {
+		for (ABug bug : bugs)
+			if (bug.getName().equals(name))
+				bug.edit();
+	}
+	
+	public void removeBugFromName(String name) {
+		for (int i = 0; i < bugs.size(); i++)
+			if (bugs.get(i).getName().equals(name))
+				bugs.remove(i);
 	}
 
 	/**
@@ -183,5 +206,13 @@ public class AWorld {
 
 	public Map getMap() {
 		return map;
+	}
+	
+	public boolean getDisplayFlag() {
+		return displayFlag;
+	}
+	
+	public void setDisplayFlag(boolean flag) {
+		displayFlag = flag;
 	}
 }

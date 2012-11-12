@@ -24,13 +24,27 @@ public class Map {
 		return foodFrequency;
 	}
 	
+	private int getObstacleNumber() {
+		int count = 0;
+		for (String row : cells)
+			for (char cell : row.toCharArray())
+				if (cell == 'X')
+					count++;
+		return count;
+	}
+	
+	public void printStats() {
+		System.out.println("X Size: " + xSize);
+		System.out.println("Y Size: " + ySize);
+		System.out.println("Obstacle Count: " + getObstacleNumber());
+	}
+	
 	/**
 	 * Randomly generates the map
 	 * @param x The XSize of the map
 	 * @param y The YSize of the map
 	 * @author Alex
 	 */
-	
 	public void generate(int x, int y) {
 		xSize = x;
 		ySize = y;

@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 public class Menu {
 	
 	private static boolean exitApplication = false;
+	private boolean exitMenu = false;
 	private AWorld world;
 	private BufferedReader br;
 	
@@ -30,7 +31,7 @@ public class Menu {
 
 		clearInput();
 
-		while (true) {
+		while (!exitMenu) {
 			int mainMenuReply = displayMainMenu();
 
 			if (mainMenuReply == (int) 'q')
@@ -45,8 +46,12 @@ public class Menu {
 				displaySimulationMenu();
 			else if (mainMenuReply == (int) '5')
 				displayHelpMenu();
+			
+			if (exitApplication)
+				return;
 		}
 
+		exitMenu = false;
 		clearInput();
 	}
 	
@@ -87,6 +92,20 @@ public class Menu {
 			else if (input == (int)'3') {
 				world.configuration.save(world.getBugNumber(), world.getMap().getObstacleFrequency(), world.getMap().getFoodFrequency(), world.getMap().getXSize(), world.getMap().getYSize());
 			}
+			else if (input == (int)'4') {
+				String directory = null;
+				System.out.println("Enter directory: ");
+				try {
+					directory = br.readLine();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				world.configuration.saveAs(directory, world.getBugNumber(), world.getMap().getObstacleFrequency(), world.getMap().getFoodFrequency(), world.getMap().getXSize(), world.getMap().getYSize());
+			}
+			else if (input == (int)'5') {
+				exit();
+				break;
+			}
 		}
 		
 		clearInput();
@@ -108,9 +127,18 @@ public class Menu {
 			
 			if (input == (int)'q')
 				break;
+			else if (input == (int)'1')
+				world.configuration.display();
+			else if (input == (int)'2')
+				world.configuration.edit();
+			else if (input == (int)'3')
+				world.printStats();
+			else if (input == (int)'4')
+				world.getMap().printStats();
+			
+			clearInput();
 		}
 		
-		clearInput();
 	}
 	
 	private void displayEditMenu() {
@@ -128,6 +156,32 @@ public class Menu {
 			
 			if (input == (int)'q')
 				break;
+			else if (input == (int)'1') {
+				clearInput();
+				System.out.println("Enter name: ");
+				try {
+					String bugName = br.readLine();
+					world.editBugFromName(bugName);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else if (input == (int)'2') {
+				clearInput();
+				System.out.println("Enter name: ");
+				try {
+					String bugName = br.readLine();
+					world.removeBugFromName(bugName);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else if (input == (int)'3') {
+				clearInput();
+				ABug b = new ABug();
+				b.edit();
+				world.addBug(b);
+			}
 		}
 		
 		clearInput();
@@ -150,6 +204,25 @@ public class Menu {
 			
 			if (input == (int)'q')
 				break;
+			else if (input == (int)'1') {
+				exitMenu = true;
+				break;
+			}
+			else if (input == (int)'2') {
+			}
+			else if (input == (int)'3') {
+				world.reset();
+				exitMenu = true;
+			}
+			else if (input == (int)'4') {
+				world.reset();
+			}
+			else if (input == (int)'5') {
+				world.setDisplayFlag(!world.getDisplayFlag());
+				System.out.println("Display flag is now " + (world.getDisplayFlag() ? "ON" : "OFF"));
+			}
+			
+			clearInput();
 		}
 		
 		clearInput();
@@ -169,6 +242,12 @@ public class Menu {
 			
 			if (input == (int)'q')
 				break;
+			else if (input == (int)'1')
+				System.out.println("Simulator");
+			else if (input == (int)'2')
+				System.out.println("Alex");
+			
+			clearInput();
 		}
 		
 		clearInput();
