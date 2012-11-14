@@ -4,6 +4,9 @@ import java.util.Random;
 
 public class StringHelper {
 
+	/**
+	 * A random generator
+	 */
 	private static Random random = new Random();
 
 	/**

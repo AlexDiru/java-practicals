@@ -3,17 +3,42 @@ package practicalWeek6.artificialLifeConfiguration;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Class used to represent a map of a world
+ * 
+ * @author Alex
+ * 
+ */
 public class Map {
 
+	/**
+	 * The width of the map
+	 */
 	private int xSize;
+
+	/**
+	 * The height of the map
+	 */
 	private int ySize;
+
+	/**
+	 * The data of the map - each string represents a row
+	 */
 	private String[] cells;
+
+	/**
+	 * A random generator
+	 */
 	private Random random = new Random();
 
-	// How often an obstacle appears on the map
+	/**
+	 * How often an obstacle appears on the map
+	 */
 	private int obstacleFrequency = 5;
 
-	// How often food appears on the map
+	/**
+	 * How often food appears on the map
+	 */
 	private int foodFrequency = 4;
 
 	/**

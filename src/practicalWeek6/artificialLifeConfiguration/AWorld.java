@@ -5,13 +5,41 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Represents a simulated world
+ * @author Alex
+ *
+ */
 public class AWorld {
 
+	/**
+	 * The map of the world
+	 */
 	private Map map;
+	
+	/**
+	 * The list of bugs which inhabit the world
+	 */
 	private ArrayList<ABug> bugs = new ArrayList<ABug>();
+	
+	/**
+	 * A random generator
+	 */
 	private Random random = new Random();
+	
+	/**
+	 * The menu for the world
+	 */
 	private Menu menu = new Menu(this);
+	
+	/**
+	 * Whether the life form info is displayed after each iteration of the world
+	 */
 	private boolean displayFlag = true;
+	
+	/**
+	 * The configuration of the world
+	 */
 	private Configuration configuration = new Configuration("config.txt");
 
 	/**

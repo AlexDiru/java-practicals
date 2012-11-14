@@ -6,15 +6,51 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+/**
+ * Class to represent an entity in the map
+ * @author Alex
+ *
+ */
 public class ABug implements ALifeForm {
 
+	/**
+	 * Position of the bug on the map
+	 */
 	private Point position;
+	
+	/**
+	 * The energy of the bug
+	 */
 	private int energy;
+	
+	/**
+	 * The distance the bug can sense food
+	 */
 	private int maxSensingDistance;
+	
+	/**
+	 * The world the bug belongs to
+	 */
 	private AWorld world;
+	
+	/**
+	 * A random generator
+	 */
 	private Random random = new Random();
+	
+	/**
+	 * The name of the bug
+	 */
 	private String name;
+	
+	/**
+	 * The symbol of the bug
+	 */
 	private char symbol;
+	
+	/**
+	 * A reader to read input
+	 */
 	private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
 	/**

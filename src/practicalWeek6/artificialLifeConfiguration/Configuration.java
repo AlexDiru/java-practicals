@@ -9,19 +9,49 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
+/**
+ * Used to saving a loading world configuration parameters to files
+ * File format:
+ * 	number_of_bugs, obstacle_frequency, food_frequency, map_x_size, map_y_size
+ * @author Alex
+ *
+ */
 public class Configuration {
 
-	// File format
-	// number_of_bugs, obstacle_frequency, food_frequency, map_x_size,
-	// map_y_size
-
+	/**
+	 * The number of bugs on the map
+	 */
 	private int bugNumber = 3;
+	
+	/**
+	 * The average percentage of the tiles which are obstacles
+	 */
 	private int obstacleFrequency = 5;
+	
+	/**
+	 * The average percentages of tiles which are food
+	 */
 	private int foodFrequency = 20;
+	
+	/**
+	 * The width of the map
+	 */
 	private int xSize = 30;
+	
+	/**
+	 * The height of the map
+	 */
 	private int ySize = 20;
+	
+	/**
+	 * The file path of the last used config file
+	 */
 	private String lastUsedConfigDirectory = "";
-	private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	
+	/**
+	 * A reader to read input
+	 */
+	private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
 	/**
 	 * Displays the parameters of the configuration
@@ -39,15 +69,15 @@ public class Configuration {
 	 */
 	public void edit() {
 		System.out.println("Bug number: ");
-		bugNumber = InputHelper.readInteger(br);
+		bugNumber = InputHelper.readInteger(bufferedReader);
 		System.out.println("Obstacle Frequency: ");
-		obstacleFrequency = InputHelper.readInteger(br);
+		obstacleFrequency = InputHelper.readInteger(bufferedReader);
 		System.out.println("Food frequency: ");
-		foodFrequency = InputHelper.readInteger(br);
+		foodFrequency = InputHelper.readInteger(bufferedReader);
 		System.out.println("X Size: ");
-		xSize = InputHelper.readInteger(br);
+		xSize = InputHelper.readInteger(bufferedReader);
 		System.out.println("Y Size: ");
-		ySize = InputHelper.readInteger(br);
+		ySize = InputHelper.readInteger(bufferedReader);
 	}
 
 	/**

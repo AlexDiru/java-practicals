@@ -3,6 +3,11 @@ package practicalWeek6.artificialLifeConfiguration;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ * Helper class provides functions to read input
+ * @author Alex
+ *
+ */
 public class InputHelper {
 	/**
 	 * Reads an integer that the user inputs and repeats until the user enters

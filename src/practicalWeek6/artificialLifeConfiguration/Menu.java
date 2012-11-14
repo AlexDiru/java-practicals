@@ -6,9 +6,24 @@ import java.io.InputStreamReader;
 
 public class Menu {
 
+	/**
+	 * The exit application flag
+	 */
 	private static boolean exitApplication = false;
+	
+	/**
+	 * Whether the use has chosen to exit the menu completely
+	 */
 	private boolean exitMenu = false;
+	
+	/**
+	 * The world the menu belongs to
+	 */
 	private AWorld world;
+	
+	/**
+	 * A reader for reading input
+	 */
 	private BufferedReader bufferedReader;
 
 	/**
@@ -40,16 +55,22 @@ public class Menu {
 			int mainMenuReply = displayMainMenu();
 
 			if (mainMenuReply == (int) 'q')
+				//Quit Menu
 				break;
 			else if (mainMenuReply == (int) '1')
+				//File Menu
 				displayFileMenu();
 			else if (mainMenuReply == (int) '2')
+				//View Menu
 				displayViewMenu();
 			else if (mainMenuReply == (int) '3')
+				//Edit Menu
 				displayEditMenu();
 			else if (mainMenuReply == (int) '4')
+				//Simulation Menu
 				displaySimulationMenu();
 			else if (mainMenuReply == (int) '5')
+				//Help Menu
 				displayHelpMenu();
 
 			if (exitApplication)
@@ -80,10 +101,13 @@ public class Menu {
 
 			clearInput();
 			if (input == (int) 'q')
+				//Back to Main Menu
 				break;
 			else if (input == (int) '1') {
+				//New Configuration
 				world.resetConfiguration();
 			} else if (input == (int) '2') {
+				//Open Configuration
 				while (true) {
 					System.out.println("Enter directory (q to quit):");
 					String dir = null;
@@ -96,8 +120,10 @@ public class Menu {
 						break;
 				}
 			} else if (input == (int) '3') {
+				//Save Configuration
 				world.getConfiguration().save(world.getBugNumber(), world.getMap().getObstacleFrequency(), world.getMap().getFoodFrequency(), world.getMap().getXSize(), world.getMap().getYSize());
 			} else if (input == (int) '4') {
+				//Save Configuration As
 				String directory = null;
 				System.out.println("Enter directory: ");
 				try {
@@ -108,6 +134,7 @@ public class Menu {
 				world.getConfiguration().saveAs(directory, world.getBugNumber(), world.getMap().getObstacleFrequency(), world.getMap().getFoodFrequency(), world.getMap().getXSize(),
 						world.getMap().getYSize());
 			} else if (input == (int) '5') {
+				//Exit application
 				exit();
 				break;
 			}
@@ -136,12 +163,16 @@ public class Menu {
 			if (input == (int) 'q')
 				break;
 			else if (input == (int) '1')
+				//Display Config
 				world.getConfiguration().display();
 			else if (input == (int) '2')
+				//Edit Config
 				world.getConfiguration().edit();
 			else if (input == (int) '3')
+				//Display Life Form Info
 				world.printStats();
 			else if (input == (int) '4')
+				//Display Map Info
 				world.getMap().printStats();
 
 			clearInput();
@@ -168,6 +199,7 @@ public class Menu {
 			if (input == (int) 'q')
 				break;
 			else if (input == (int) '1') {
+				//Modify Life Form parmeters
 				clearInput();
 				System.out.println("Enter name: ");
 				try {
@@ -177,6 +209,7 @@ public class Menu {
 					e.printStackTrace();
 				}
 			} else if (input == (int) '2') {
+				//Remove Current Life Form
 				clearInput();
 				System.out.println("Enter name: ");
 				try {
@@ -186,6 +219,7 @@ public class Menu {
 					e.printStackTrace();
 				}
 			} else if (input == (int) '3') {
+				//Add a new life form
 				clearInput();
 				ABug b = new ABug();
 				b.edit();
@@ -217,15 +251,20 @@ public class Menu {
 			if (input == (int) 'q')
 				break;
 			else if (input == (int) '1') {
+				//Run
 				exitMenu = true;
 				break;
 			} else if (input == (int) '2') {
+				//Do nothing - simulation is already stopped
 			} else if (input == (int) '3') {
+				//Restart the world
 				world.reset();
 				exitMenu = true;
 			} else if (input == (int) '4') {
+				//Reset the world
 				world.reset();
 			} else if (input == (int) '5') {
+				//Toggle the display flag
 				world.setDisplayFlag(!world.getDisplayFlag());
 				System.out.println("Display flag is now " + (world.getDisplayFlag() ? "ON" : "OFF"));
 			}
@@ -254,8 +293,10 @@ public class Menu {
 			if (input == (int) 'q')
 				break;
 			else if (input == (int) '1')
+				//Application Info
 				System.out.println("Simulator");
 			else if (input == (int) '2')
+				//Author Info
 				System.out.println("Alex");
 
 			clearInput();
