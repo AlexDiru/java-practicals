@@ -5,25 +5,30 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Menu {
-	
+
 	private static boolean exitApplication = false;
 	private boolean exitMenu = false;
 	private AWorld world;
-	private BufferedReader br;
-	
+	private BufferedReader bufferedReader;
+
+	/**
+	 * Creates a reader for the menu and assigns the menu to a word
+	 * 
+	 * @param world
+	 *            The world to assign the menu to
+	 */
 	public Menu(AWorld world) {
 		this.world = world;
-		br = new BufferedReader(new InputStreamReader(System.in));
+		bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 	}
-	
+
+	/**
+	 * Sets the exitApplication flag to true - will exit the application
+	 */
 	private static void exit() {
 		exitApplication = true;
 	}
-	
-	public static boolean getExitStatus() {
-		return exitApplication;
-	}
-	
+
 	/**
 	 * Shows the menu to the user
 	 */
@@ -46,7 +51,7 @@ public class Menu {
 				displaySimulationMenu();
 			else if (mainMenuReply == (int) '5')
 				displayHelpMenu();
-			
+
 			if (exitApplication)
 				return;
 		}
@@ -54,11 +59,14 @@ public class Menu {
 		exitMenu = false;
 		clearInput();
 	}
-	
+
+	/**
+	 * Displays the file menu and handles input
+	 */
 	private void displayFileMenu() {
-		
+
 		clearInput();
-		
+
 		while (true) {
 			System.out.println("--File--");
 			System.out.println("\t(1) New Configuration");
@@ -67,54 +75,54 @@ public class Menu {
 			System.out.println("\t(4) Save As");
 			System.out.println("\t(5) Exit");
 			System.out.println("\t(q) Back to main menu");
-			
+
 			int input = readInput();
 
 			clearInput();
-			if (input == (int)'q')
+			if (input == (int) 'q')
 				break;
-			else if (input == (int)'1') {
-				world.configuration = new Configuration("");
-			}
-			else if (input == (int)'2') {
+			else if (input == (int) '1') {
+				world.resetConfiguration();
+			} else if (input == (int) '2') {
 				while (true) {
 					System.out.println("Enter directory (q to quit):");
 					String dir = null;
 					try {
-						dir = br.readLine();
+						dir = bufferedReader.readLine();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					if (dir == null || dir.equals("q") || world.configuration.load(dir))
+					if (dir == null || dir.equals("q") || world.getConfiguration().load(dir))
 						break;
 				}
-			}
-			else if (input == (int)'3') {
-				world.configuration.save(world.getBugNumber(), world.getMap().getObstacleFrequency(), world.getMap().getFoodFrequency(), world.getMap().getXSize(), world.getMap().getYSize());
-			}
-			else if (input == (int)'4') {
+			} else if (input == (int) '3') {
+				world.getConfiguration().save(world.getBugNumber(), world.getMap().getObstacleFrequency(), world.getMap().getFoodFrequency(), world.getMap().getXSize(), world.getMap().getYSize());
+			} else if (input == (int) '4') {
 				String directory = null;
 				System.out.println("Enter directory: ");
 				try {
-					directory = br.readLine();
+					directory = bufferedReader.readLine();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				world.configuration.saveAs(directory, world.getBugNumber(), world.getMap().getObstacleFrequency(), world.getMap().getFoodFrequency(), world.getMap().getXSize(), world.getMap().getYSize());
-			}
-			else if (input == (int)'5') {
+				world.getConfiguration().saveAs(directory, world.getBugNumber(), world.getMap().getObstacleFrequency(), world.getMap().getFoodFrequency(), world.getMap().getXSize(),
+						world.getMap().getYSize());
+			} else if (input == (int) '5') {
 				exit();
 				break;
 			}
 		}
-		
+
 		clearInput();
 	}
-	
+
+	/**
+	 * Displays the view menu and handles input
+	 */
 	private void displayViewMenu() {
-		
+
 		clearInput();
-		
+
 		while (true) {
 			System.out.println("--View--");
 			System.out.println("\t(1) Display Configuration");
@@ -122,75 +130,79 @@ public class Menu {
 			System.out.println("\t(3) Display Life Form Info");
 			System.out.println("\t(4) Display Map Info");
 			System.out.println("\t(q) Back to main menu");
-			
+
 			int input = readInput();
-			
-			if (input == (int)'q')
+
+			if (input == (int) 'q')
 				break;
-			else if (input == (int)'1')
-				world.configuration.display();
-			else if (input == (int)'2')
-				world.configuration.edit();
-			else if (input == (int)'3')
+			else if (input == (int) '1')
+				world.getConfiguration().display();
+			else if (input == (int) '2')
+				world.getConfiguration().edit();
+			else if (input == (int) '3')
 				world.printStats();
-			else if (input == (int)'4')
+			else if (input == (int) '4')
 				world.getMap().printStats();
-			
+
 			clearInput();
 		}
-		
+
 	}
-	
+
+	/**
+	 * Displays the edit menu and handles input
+	 */
 	private void displayEditMenu() {
-		
+
 		clearInput();
-		
+
 		while (true) {
 			System.out.println("--Edit--");
 			System.out.println("\t(1) Modify Current Life Form Parameters");
 			System.out.println("\t(2) Remove Current Life Form");
 			System.out.println("\t(3) Add a New Life Form");
 			System.out.println("\t(q) Back to main menu");
-			
+
 			int input = readInput();
-			
-			if (input == (int)'q')
+
+			if (input == (int) 'q')
 				break;
-			else if (input == (int)'1') {
+			else if (input == (int) '1') {
 				clearInput();
 				System.out.println("Enter name: ");
 				try {
-					String bugName = br.readLine();
+					String bugName = bufferedReader.readLine();
 					world.editBugFromName(bugName);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
-			else if (input == (int)'2') {
+			} else if (input == (int) '2') {
 				clearInput();
 				System.out.println("Enter name: ");
 				try {
-					String bugName = br.readLine();
+					String bugName = bufferedReader.readLine();
 					world.removeBugFromName(bugName);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
-			else if (input == (int)'3') {
+			} else if (input == (int) '3') {
 				clearInput();
 				ABug b = new ABug();
 				b.edit();
 				world.addBug(b);
 			}
 		}
-		
+
 		clearInput();
 	}
-	
+
+	/**
+	 * Displays the simulation menu and handles input
+	 */
 	private void displaySimulationMenu() {
-		
+
 		clearInput();
-		
+
 		while (true) {
 			System.out.println("--Simulation--");
 			System.out.println("\t(1) Run");
@@ -199,60 +211,59 @@ public class Menu {
 			System.out.println("\t(4) Reset");
 			System.out.println("\t(5) Display Map at each Iteration");
 			System.out.println("\t(q) Back to main menu");
-			
+
 			int input = readInput();
-			
-			if (input == (int)'q')
+
+			if (input == (int) 'q')
 				break;
-			else if (input == (int)'1') {
+			else if (input == (int) '1') {
 				exitMenu = true;
 				break;
-			}
-			else if (input == (int)'2') {
-			}
-			else if (input == (int)'3') {
+			} else if (input == (int) '2') {
+			} else if (input == (int) '3') {
 				world.reset();
 				exitMenu = true;
-			}
-			else if (input == (int)'4') {
+			} else if (input == (int) '4') {
 				world.reset();
-			}
-			else if (input == (int)'5') {
+			} else if (input == (int) '5') {
 				world.setDisplayFlag(!world.getDisplayFlag());
 				System.out.println("Display flag is now " + (world.getDisplayFlag() ? "ON" : "OFF"));
 			}
-			
+
 			clearInput();
 		}
-		
+
 		clearInput();
 	}
 
+	/**
+	 * Displays the help menu and handles input
+	 */
 	private void displayHelpMenu() {
-		
+
 		clearInput();
-		
+
 		while (true) {
 			System.out.println("--Simulation--");
 			System.out.println("\t(1) Application Info");
 			System.out.println("\t(2) Author Info");
 			System.out.println("\t(q) Back to main menu");
-			
+
 			int input = readInput();
-			
-			if (input == (int)'q')
+
+			if (input == (int) 'q')
 				break;
-			else if (input == (int)'1')
+			else if (input == (int) '1')
 				System.out.println("Simulator");
-			else if (input == (int)'2')
+			else if (input == (int) '2')
 				System.out.println("Alex");
-			
+
 			clearInput();
 		}
-		
+
 		clearInput();
 	}
-	
+
 	/**
 	 * Clears the input buffer
 	 */
@@ -266,6 +277,11 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * Displays the main menu text
+	 * 
+	 * @return The input read
+	 */
 	private int displayMainMenu() {
 		System.out.println("--Menu--");
 		System.out.println("(1) File");
@@ -277,7 +293,12 @@ public class Menu {
 
 		return readInput();
 	}
-	
+
+	/**
+	 * Reads a single character on the System.in stream
+	 * 
+	 * @return The character read
+	 */
 	private int readInput() {
 		try {
 			return System.in.read();
@@ -285,5 +306,9 @@ public class Menu {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+
+	public static boolean getExitStatus() {
+		return exitApplication;
 	}
 }

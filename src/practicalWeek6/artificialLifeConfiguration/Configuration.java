@@ -10,10 +10,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 public class Configuration {
-	
-	//File format
-	//number_of_bugs, obstacle_frequency, food_frequency, map_x_size, map_y_size
-	
+
+	// File format
+	// number_of_bugs, obstacle_frequency, food_frequency, map_x_size,
+	// map_y_size
+
 	private int bugNumber = 3;
 	private int obstacleFrequency = 5;
 	private int foodFrequency = 20;
@@ -21,7 +22,7 @@ public class Configuration {
 	private int ySize = 20;
 	private String lastUsedConfigDirectory = "";
 	private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	
+
 	/**
 	 * Displays the parameters of the configuration
 	 */
@@ -32,7 +33,7 @@ public class Configuration {
 		System.out.println("X Size: " + xSize);
 		System.out.println("Y Size: " + ySize);
 	}
-	
+
 	/**
 	 * Allows the user to edit the parameters of the configuration
 	 */
@@ -48,7 +49,13 @@ public class Configuration {
 		System.out.println("Y Size: ");
 		ySize = InputHelper.readInteger(br);
 	}
-	
+
+	/**
+	 * Sets up the configuration by loading the last used configuration file
+	 * 
+	 * @param directory
+	 *            The filepath of the last used configuration file
+	 */
 	public Configuration(String directory) {
 		File file = new File(directory);
 		if (file.exists()) {
@@ -59,7 +66,7 @@ public class Configuration {
 				e.printStackTrace();
 			}
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			
+
 			try {
 				lastUsedConfigDirectory = bufferedReader.readLine();
 				bufferedReader.close();
@@ -68,7 +75,7 @@ public class Configuration {
 			}
 		}
 	}
-	
+
 	/**
 	 * Loads the last used config file
 	 */
@@ -79,7 +86,9 @@ public class Configuration {
 
 	/**
 	 * Loads the configuration file
-	 * @param directory The directory to load from
+	 * 
+	 * @param directory
+	 *            The directory to load from
 	 * @return Success of the operation
 	 */
 	public boolean load(String directory) {
@@ -92,7 +101,7 @@ public class Configuration {
 				e.printStackTrace();
 			}
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			
+
 			try {
 				String[] data = bufferedReader.readLine().split(",");
 				bugNumber = Integer.parseInt(data[0]);
@@ -112,10 +121,12 @@ public class Configuration {
 		System.out.println("File doesn't exist");
 		return false;
 	}
-	
+
 	/**
 	 * Writes the last config file used directory to config.txt
-	 * @param directory The directory of the last used config file
+	 * 
+	 * @param directory
+	 *            The directory of the last used config file
 	 */
 	private void writeLatestDirectory(String directory) {
 		lastUsedConfigDirectory = directory;
@@ -127,18 +138,25 @@ public class Configuration {
 			e.printStackTrace();
 		}
 		PrintWriter printWriter = new PrintWriter(fileWriter);
-		
+
 		printWriter.println(directory);
 	}
-	
+
 	/**
 	 * Saves the parameters to a new file
-	 * @param directory File to save to
-	 * @param bugNum Number of bugs
-	 * @param obstFreq Obstacle frequency
-	 * @param foodFreq Food frequency
-	 * @param xSize X Size
-	 * @param ySize Y Size
+	 * 
+	 * @param directory
+	 *            File to save to
+	 * @param bugNum
+	 *            Number of bugs
+	 * @param obstFreq
+	 *            Obstacle frequency
+	 * @param foodFreq
+	 *            Food frequency
+	 * @param xSize
+	 *            X Size
+	 * @param ySize
+	 *            Y Size
 	 */
 	public void saveAs(String directory, int bugNum, int obstFreq, int foodFreq, int xSize, int ySize) {
 		File file = new File(directory);
@@ -149,24 +167,33 @@ public class Configuration {
 			e.printStackTrace();
 		}
 		PrintWriter printWriter = new PrintWriter(fileWriter);
-		
+
 		printWriter.println(bugNum + "," + obstFreq + "," + foodFreq + "," + xSize + "," + ySize);
+
+		printWriter.close();
 	}
-	
+
 	/**
 	 * Saves the parameters to the same file
-	 * @param bugNum Number of bugs
-	 * @param obstFreq Obstacle frequency
-	 * @param foodFreq Food frequency
-	 * @param xSize X Size
-	 * @param ySize Y Size
+	 * 
+	 * @param bugNum
+	 *            Number of bugs
+	 * @param obstFreq
+	 *            Obstacle frequency
+	 * @param foodFreq
+	 *            Food frequency
+	 * @param xSize
+	 *            X Size
+	 * @param ySize
+	 *            Y Size
 	 */
 	public void save(int bugNum, int obstFreq, int foodFreq, int xSize, int ySize) {
 		saveAs(lastUsedConfigDirectory, bugNum, obstFreq, foodFreq, xSize, ySize);
 	}
-	
+
 	/**
 	 * Gets the parameters of the configurations
+	 * 
 	 * @return An array containing the parameters
 	 */
 	public int[] getParameters() {

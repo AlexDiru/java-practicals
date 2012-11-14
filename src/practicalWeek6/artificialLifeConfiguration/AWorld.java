@@ -12,8 +12,17 @@ public class AWorld {
 	private Random random = new Random();
 	private Menu menu = new Menu(this);
 	private boolean displayFlag = true;
-	public Configuration configuration = new Configuration("config.txt");
+	private Configuration configuration = new Configuration("config.txt");
 
+	/**
+	 * Sets up the world, by loading the data from the last opened configuration
+	 * file and generating a map
+	 * 
+	 * @param xSize
+	 *            The x size of the map to generate
+	 * @param ySize
+	 *            The y size of the map to generate
+	 */
 	public AWorld(int xSize, int ySize) {
 		// Load last configuration file
 		configuration.loadLastUsed();
@@ -26,10 +35,6 @@ public class AWorld {
 		// Generate bugs
 		for (int b = 0; b < parameters[0]; b++)
 			addBug(new ABug());
-	}
-	
-	public int getBugNumber() {
-		return bugs.size();
 	}
 
 	/**
@@ -98,13 +103,13 @@ public class AWorld {
 
 		return position;
 	}
-	
+
 	public void reset() {
-		//All bugs energy 10
+		// All bugs energy 10
 		for (int i = 0; i < bugs.size(); i++)
 			bugs.get(i).setEnergy(10);
-		
-		//Regenerate map
+
+		// Regenerate map
 		map.generate(map.getXSize(), map.getYSize());
 	}
 
@@ -183,17 +188,36 @@ public class AWorld {
 				break;
 		}
 	}
-	
+
+	/**
+	 * Allows the user to edit a bug given a name
+	 * 
+	 * @param name
+	 *            The name of the bug to edit
+	 */
 	public void editBugFromName(String name) {
 		for (ABug bug : bugs)
 			if (bug.getName().equals(name))
 				bug.edit();
 	}
-	
+
+	/**
+	 * Removes a bug from the world given a name
+	 * 
+	 * @param name
+	 *            The name of the bug to remove
+	 */
 	public void removeBugFromName(String name) {
 		for (int i = 0; i < bugs.size(); i++)
 			if (bugs.get(i).getName().equals(name))
 				bugs.remove(i);
+	}
+
+	/**
+	 * Resets the configuration
+	 */
+	public void resetConfiguration() {
+		configuration = new Configuration("");
 	}
 
 	/**
@@ -207,12 +231,20 @@ public class AWorld {
 	public Map getMap() {
 		return map;
 	}
-	
+
 	public boolean getDisplayFlag() {
 		return displayFlag;
 	}
-	
+
 	public void setDisplayFlag(boolean flag) {
 		displayFlag = flag;
+	}
+
+	public Configuration getConfiguration() {
+		return configuration;
+	}
+
+	public int getBugNumber() {
+		return bugs.size();
 	}
 }

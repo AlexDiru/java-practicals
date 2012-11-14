@@ -5,9 +5,12 @@ import java.io.IOException;
 
 public class InputHelper {
 	/**
-	 * Reads an integer that the user inputs and repeats until the user enters an integer
+	 * Reads an integer that the user inputs and repeats until the user enters
+	 * an integer
+	 * 
 	 * @param bufferedReader
-	 * @return
+	 *            The reader to read
+	 * @return The integer input
 	 */
 	public static int readInteger(BufferedReader bufferedReader) {
 		String line = "-1";
@@ -18,14 +21,16 @@ public class InputHelper {
 				e.printStackTrace();
 			}
 		} while (!tryParseInteger(line));
-		
+
 		return Integer.parseInt(line);
 	}
-	
+
 	/**
 	 * Given a string returns true if the string is a number and false otherwise
+	 * 
 	 * @param string
-	 * @return
+	 *            The string to attempt to parse
+	 * @return Whether the input is an integer
 	 */
 	private static Boolean tryParseInteger(String string) {
 		try {
