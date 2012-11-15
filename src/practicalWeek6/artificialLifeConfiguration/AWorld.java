@@ -7,8 +7,9 @@ import java.util.Random;
 
 /**
  * Represents a simulated world
+ * 
  * @author Alex
- *
+ * 
  */
 public class AWorld {
 
@@ -16,27 +17,27 @@ public class AWorld {
 	 * The map of the world
 	 */
 	private Map map;
-	
+
 	/**
 	 * The list of bugs which inhabit the world
 	 */
 	private ArrayList<ABug> bugs = new ArrayList<ABug>();
-	
+
 	/**
 	 * A random generator
 	 */
 	private Random random = new Random();
-	
+
 	/**
 	 * The menu for the world
 	 */
 	private Menu menu = new Menu(this);
-	
+
 	/**
 	 * Whether the life form info is displayed after each iteration of the world
 	 */
 	private boolean displayFlag = true;
-	
+
 	/**
 	 * The configuration of the world
 	 */
@@ -54,6 +55,22 @@ public class AWorld {
 	public AWorld(int xSize, int ySize) {
 		// Load last configuration file
 		configuration.loadLastUsed();
+		int[] parameters = configuration.getParameters();
+
+		map = new Map();
+		map.setParameters(parameters[1], parameters[2]);
+		map.generate(parameters[3], parameters[4]);
+
+		// Generate bugs
+		for (int b = 0; b < parameters[0]; b++)
+			addBug(new ABug());
+	}
+
+	public AWorld() {
+		generate();
+	}
+
+	public void generate() {
 		int[] parameters = configuration.getParameters();
 
 		map = new Map();

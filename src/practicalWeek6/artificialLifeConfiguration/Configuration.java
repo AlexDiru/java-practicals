@@ -110,7 +110,8 @@ public class Configuration {
 	 * Loads the last used config file
 	 */
 	public void loadLastUsed() {
-		if (!lastUsedConfigDirectory.equals(""))
+		
+		if (lastUsedConfigDirectory != null && !lastUsedConfigDirectory.equals(""))
 			load(lastUsedConfigDirectory);
 	}
 
@@ -170,6 +171,7 @@ public class Configuration {
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 
 		printWriter.println(directory);
+		printWriter.close();
 	}
 
 	/**
@@ -188,7 +190,7 @@ public class Configuration {
 	 * @param ySize
 	 *            Y Size
 	 */
-	public void saveAs(String directory, int bugNum, int obstFreq, int foodFreq, int xSize, int ySize) {
+	public void saveAs(String directory) {//, int bugNum, int obstFreq, int foodFreq, int xSize, int ySize) {
 		File file = new File(directory);
 		FileWriter fileWriter = null;
 		try {
@@ -198,9 +200,9 @@ public class Configuration {
 		}
 		PrintWriter printWriter = new PrintWriter(fileWriter);
 
-		printWriter.println(bugNum + "," + obstFreq + "," + foodFreq + "," + xSize + "," + ySize);
-
+		printWriter.println(this.bugNumber + "," + this.obstacleFrequency + "," + this.foodFrequency + "," + this.xSize + "," + this.ySize);
 		printWriter.close();
+		writeLatestDirectory(directory);
 	}
 
 	/**
@@ -217,8 +219,8 @@ public class Configuration {
 	 * @param ySize
 	 *            Y Size
 	 */
-	public void save(int bugNum, int obstFreq, int foodFreq, int xSize, int ySize) {
-		saveAs(lastUsedConfigDirectory, bugNum, obstFreq, foodFreq, xSize, ySize);
+	public void save() {
+		saveAs(lastUsedConfigDirectory);
 	}
 
 	/**

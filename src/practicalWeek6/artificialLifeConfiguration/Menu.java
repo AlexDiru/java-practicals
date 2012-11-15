@@ -121,7 +121,7 @@ public class Menu {
 				}
 			} else if (input == (int) '3') {
 				//Save Configuration
-				world.getConfiguration().save(world.getBugNumber(), world.getMap().getObstacleFrequency(), world.getMap().getFoodFrequency(), world.getMap().getXSize(), world.getMap().getYSize());
+				world.getConfiguration().save();
 			} else if (input == (int) '4') {
 				//Save Configuration As
 				String directory = null;
@@ -131,8 +131,7 @@ public class Menu {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				world.getConfiguration().saveAs(directory, world.getBugNumber(), world.getMap().getObstacleFrequency(), world.getMap().getFoodFrequency(), world.getMap().getXSize(),
-						world.getMap().getYSize());
+				world.getConfiguration().saveAs(directory);
 			} else if (input == (int) '5') {
 				//Exit application
 				exit();
@@ -262,7 +261,8 @@ public class Menu {
 				exitMenu = true;
 			} else if (input == (int) '4') {
 				//Reset the world
-				world.reset();
+				world.generate();
+				exitMenu = true;
 			} else if (input == (int) '5') {
 				//Toggle the display flag
 				world.setDisplayFlag(!world.getDisplayFlag());

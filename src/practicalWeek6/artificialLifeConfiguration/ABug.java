@@ -8,8 +8,9 @@ import java.util.Random;
 
 /**
  * Class to represent an entity in the map
+ * 
  * @author Alex
- *
+ * 
  */
 public class ABug implements ALifeForm {
 
@@ -17,37 +18,37 @@ public class ABug implements ALifeForm {
 	 * Position of the bug on the map
 	 */
 	private Point position;
-	
+
 	/**
 	 * The energy of the bug
 	 */
 	private int energy;
-	
+
 	/**
 	 * The distance the bug can sense food
 	 */
 	private int maxSensingDistance;
-	
+
 	/**
 	 * The world the bug belongs to
 	 */
 	private AWorld world;
-	
+
 	/**
 	 * A random generator
 	 */
 	private Random random = new Random();
-	
+
 	/**
 	 * The name of the bug
 	 */
 	private String name;
-	
+
 	/**
 	 * The symbol of the bug
 	 */
 	private char symbol;
-	
+
 	/**
 	 * A reader to read input
 	 */
@@ -60,7 +61,7 @@ public class ABug implements ALifeForm {
 		energy = 10;
 		maxSensingDistance = 2;
 		name = StringHelper.generateRandomName();
-		symbol = (char) (random.nextInt(100) + 10);
+		symbol = (char) (random.nextInt((int)'A') + 25);
 	}
 
 	/**
